@@ -2,6 +2,7 @@ package com.transaction.api.transactionmicroserviceapi.service;
 
 import com.transaction.api.transactionmicroserviceapi.domain.Transaction;
 import com.transaction.api.transactionmicroserviceapi.domain.User;
+import com.transaction.api.transactionmicroserviceapi.dto.CreateUserDTO;
 import com.transaction.api.transactionmicroserviceapi.dto.TransactionDTO;
 import com.transaction.api.transactionmicroserviceapi.dto.UserDTO;
 import com.transaction.api.transactionmicroserviceapi.repository.TransactionRepository;
@@ -21,12 +22,11 @@ public class ApiServices {
     private TransactionRepository transactionRepository;
 
     @Transactional
-    public ResponseEntity createUser(UserDTO userDTO) {
-
-//        if (userRepository.findByUser(userDTO) != null){
-//            return ResponseEntity.badRequest().build();
-//        }
-
+    public ResponseEntity createUser(CreateUserDTO userDTO) {
+        var user = new User();
+        if (userRepository.findByNumberAccount(user.getNumberAccount()) == user.getNumberAccount()) {
+            return ResponseEntity.badRequest().build();
+}
         User newUser = new User(userDTO);
         userRepository.save(newUser);
 

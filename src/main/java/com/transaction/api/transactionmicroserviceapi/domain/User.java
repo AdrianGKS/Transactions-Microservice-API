@@ -1,8 +1,8 @@
 package com.transaction.api.transactionmicroserviceapi.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.transaction.api.transactionmicroserviceapi.dto.CreateUserDTO;
+import com.transaction.api.transactionmicroserviceapi.dto.TransactionDTO;
 import com.transaction.api.transactionmicroserviceapi.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,18 +22,26 @@ public class User {
 
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
-    private CurrentAccount account;
+    private String numberAccount;
 
-    @OneToMany(mappedBy = "user")
+    private Double balance;
+
+    @OneToMany(mappedBy = "users")
     private List<Transaction> transactions;
 
     public User(UserDTO userDTO) {
+        id = userDTO.id();
         name = userDTO.name();
-        account = new CurrentAccount(userDTO.account());
+        numberAccount = userDTO.numberAccount();
+        balance = userDTO.balance();
     }
 
+    public User(CreateUserDTO userDTO) {
+        name = userDTO.name();
+        numberAccount = userDTO.numberAccount();
 
+        if (userDTO.balance() == null || userDTO.balance() < 0)
+            balance = 0.0;
+    }
 
 }

@@ -23,22 +23,25 @@ public class Transaction {
 
     private Double value;
 
-    private LocalDate date = LocalDate.now();
+    private LocalDate date;
 
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "origin_account_id")
+    private User originAccount;
 
     @ManyToOne
-    private CurrentAccount originAccount;
+    @JoinColumn(name = "destiny_account_id")
+    private User destinyAccount;
 
     @ManyToOne
-    private CurrentAccount destinyAccount;
-
+    @JoinColumn(name = "user_id")
+    private User users;
 
     public Transaction(TransactionDTO transactionDTO) {
-        user = new User(transactionDTO.user());
         value = transactionDTO.value();
-        originAccount = new CurrentAccount(transactionDTO.origin());
-        destinyAccount = new CurrentAccount(transactionDTO.destiny());
+        date = LocalDate.now();
+        originAccount = new User(transactionDTO.origin());
+        destinyAccount = new User(transactionDTO.destiny());
     }
+
 }

@@ -3,14 +3,12 @@ package com.transaction.api.transactionmicroserviceapi.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+
 public record TransactionDTO(
-        @NotBlank
-        UserDTO user,
-        @NotNull
+        Long id,
         Double value,
-        @NotBlank
-        CurrentAccountDTO origin,
-        @NotBlank
-        CurrentAccountDTO destiny
+        UserDTO origin,
+        UserDTO destiny
 ) {
 }

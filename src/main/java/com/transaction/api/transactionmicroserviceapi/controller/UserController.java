@@ -1,5 +1,6 @@
 package com.transaction.api.transactionmicroserviceapi.controller;
 
+import com.transaction.api.transactionmicroserviceapi.dto.CreateUserDTO;
 import com.transaction.api.transactionmicroserviceapi.dto.UserDTO;
 import com.transaction.api.transactionmicroserviceapi.repository.UserRepository;
 import com.transaction.api.transactionmicroserviceapi.service.ApiServices;
@@ -19,7 +20,7 @@ public class UserController {
     private ApiServices services;
 
     @PostMapping("/register")
-    public ResponseEntity createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity createUser(@RequestBody CreateUserDTO userDTO) {
         return services.createUser(userDTO);
     }
 
