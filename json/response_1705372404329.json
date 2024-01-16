@@ -1,0 +1,18 @@
+{
+  "id": 17,
+  "value": 1000,
+  "date": "2024-01-15",
+  "originAccount": {
+    "id": 3,
+    "name": "string",
+    "numberAccount": "string",
+    "balance": 1100
+  },
+  "destinyAccount": {
+    "id": 2,
+    "name": "string",
+    "numberAccount": "string",
+    "balance": 1510
+  },
+  "user": null
+}
