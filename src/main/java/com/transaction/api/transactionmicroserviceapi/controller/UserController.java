@@ -1,23 +1,23 @@
 package com.transaction.api.transactionmicroserviceapi.controller;
 
 import com.transaction.api.transactionmicroserviceapi.dto.CreateUserDTO;
-import com.transaction.api.transactionmicroserviceapi.dto.UserDTO;
 import com.transaction.api.transactionmicroserviceapi.repository.UserRepository;
-import com.transaction.api.transactionmicroserviceapi.service.ApiServices;
-import jakarta.validation.Valid;
+import com.transaction.api.transactionmicroserviceapi.service.APIServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
+@Tag(name = "User")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private ApiServices services;
+    private APIServices services;
 
     @PostMapping("/register")
     public ResponseEntity createUser(@RequestBody CreateUserDTO userDTO) {

@@ -1,7 +1,7 @@
 package com.transaction.api.transactionmicroserviceapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.transaction.api.transactionmicroserviceapi.dto.TransactionDTO;
+import com.transaction.api.transactionmicroserviceapi.dto.BasicTransactionsDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,13 +35,19 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User users;
+    private User user;
 
-    public Transaction(TransactionDTO transactionDTO) {
+    public Transaction(User originAccount, User destinyAccount, BasicTransactionsDTO transactionDTO) {
         value = transactionDTO.value();
         date = LocalDate.now();
-        originAccount = new User(transactionDTO.origin());
-        destinyAccount = new User(transactionDTO.destiny());
+        this.originAccount = originAccount;
+        this.destinyAccount = destinyAccount;
+    }
+
+    public Transaction(User user, BasicTransactionsDTO transactionDTO) {
+        this.user = user;
+        value = transactionDTO.value();
+        date = LocalDate.now();
     }
 
 }

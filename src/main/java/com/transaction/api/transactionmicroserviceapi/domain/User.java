@@ -1,13 +1,10 @@
 package com.transaction.api.transactionmicroserviceapi.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.transaction.api.transactionmicroserviceapi.dto.CreateUserDTO;
-import com.transaction.api.transactionmicroserviceapi.dto.TransactionDTO;
-import com.transaction.api.transactionmicroserviceapi.dto.UserDTO;
+import com.transaction.api.transactionmicroserviceapi.dto.*;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Table(name = "users")
 @Entity(name = "User")
@@ -26,8 +23,6 @@ public class User {
 
     private Double balance;
 
-    @OneToMany(mappedBy = "users")
-    private List<Transaction> transactions;
 
     public User(UserDTO userDTO) {
         id = userDTO.id();
@@ -39,9 +34,21 @@ public class User {
     public User(CreateUserDTO userDTO) {
         name = userDTO.name();
         numberAccount = userDTO.numberAccount();
-
-        if (userDTO.balance() == null || userDTO.balance() < 0)
-            balance = 0.0;
+        balance = 0.00;
     }
+
+
+    public void deposit(BasicTransactionsDTO transactionDTO) {
+        if (transactionDTO != null) {
+            balance += transactionDTO.value();
+        }
+    }
+
+    public void withdraw(BasicTransactionsDTO transactionDTO) {
+        if (transactionDTO != null) {
+            balance -= transactionDTO.value();
+        }
+    }
+
 
 }
